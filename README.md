@@ -1,5 +1,5 @@
 # Welcome to my GitHub
-<h4>こんにちは、frisk（朝陽）です。<img src="https://raw.githubusercontent.com/ABSphreak/ABSphreak/master/gifs/Hi.gif" width="20px" height="20px">
+<h4>こんにちは、frisk-V3です。<img src="https://raw.githubusercontent.com/ABSphreak/ABSphreak/master/gifs/Hi.gif" width="20px" height="20px">
 
 - FNF を中心にした音楽・ゲーム制作が好きです!!  
 - Unity と LMMS を使って作品づくりを進めています  
