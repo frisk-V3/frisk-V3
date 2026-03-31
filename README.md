@@ -2,7 +2,7 @@
 <h4>こんにちは、frisk-V3です。<img src="https://raw.githubusercontent.com/ABSphreak/ABSphreak/master/gifs/Hi.gif" width="20px" height="20px">
 
 - 自分のこれ作りたいなーって思ったやつを作ったりするツール系開発者です!  
-- csc.exe と LMMS を使って作品づくりを進めています    
+- いろんな言語を学んでいますがメイン言語はC#です！
 </h4>
 
 ### GitHub Analytics
