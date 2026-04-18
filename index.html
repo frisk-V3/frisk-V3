@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>frisk-V3 | Portfolio</title>
+    <style>
+        /* --- Base Settings --- */
+        :root {
+            --bg: #05070a;
+            --neon-white: #ffffff;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --surface: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --neon-glow: 0 0 15px rgba(255, 255, 255, 0.4);
+            --transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* カスタムスクロールバー */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border-glass); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-white); }
+
+        .container { width: min(1000px, 100% - 40px); margin: 0 auto; }
+
+        /* --- Header --- */
+        .site-header {
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 7, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-weight: 900; letter-spacing: 2px; color: var(--neon-white); text-shadow: var(--neon-glow); }
+        .nav-list { display: flex; gap: 20px; list-style: none; margin: 0; }
+        .nav-list a { text-decoration: none; color: var(--text-dim); font-size: 0.85rem; transition: var(--transition); }
+        .nav-list a:hover { color: var(--neon-white); text-shadow: var(--neon-glow); }
+
+        /* --- Sections --- */
+        .section { padding: 120px 0; opacity: 0; transform: translateY(20px); transition: all 1s ease; }
+        .section.visible { opacity: 1; transform: translateY(0); }
+        
+        .section-title {
+            font-size: 2rem; text-align: center; margin-bottom: 60px;
+            letter-spacing: 4px; text-transform: uppercase; color: var(--neon-white);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* --- Hero --- */
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; font-weight: 900; }
+        .hero p { color: var(--text-dim); font-size: 1.1rem; margin-top: 10px; }
+        .hero-actions { margin-top: 30px; display: flex; gap: 15px; justify-content: center; }
+
+        .btn {
+            padding: 12px 35px; border-radius: 4px; text-decoration: none; font-weight: bold;
+            transition: var(--transition); font-size: 0.9rem;
+        }
+        .btn.primary { background: var(--neon-white); color: #000; }
+        .btn.ghost { border: 1px solid var(--neon-white); color: var(--neon-white); }
+        .btn:hover { transform: translateY(-3px); box-shadow: var(--neon-glow); opacity: 0.9; }
+
+        /* --- Project Cards --- */
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card {
+            background: var(--surface); border: 1px solid var(--border-glass);
+            padding: 30px; border-radius: 8px; transition: var(--transition);
+        }
+        .card:hover { border-color: var(--neon-white); box-shadow: var(--neon-glow); background: rgba(255,255,255,0.05); }
+        .card h3 { margin: 0 0 10px 0; color: var(--neon-white); }
+        .card p { font-size: 0.9rem; color: var(--text-dim); }
+        .card-link { color: var(--neon-white); text-decoration: none; font-size: 0.8rem; font-weight: bold; border-bottom: 1px solid; }
+
+        /* --- Music Player --- */
+        .music-player-container {
+            max-width: 500px; margin: 0 auto; background: var(--surface);
+            padding: 30px; border-radius: 8px; border: 1px solid var(--border-glass);
+        }
+        audio { width: 100%; filter: invert(1); opacity: 0.7; }
+
+        /* --- GitHub Footer Link (移動分) --- */
+        .github-footer-area { text-align: center; padding: 60px 0; }
+        .github-footer-link {
+            display: inline-flex; flex-direction: column; align-items: center;
+            gap: 15px; text-decoration: none; color: var(--text-dim); transition: var(--transition);
+        }
+        .github-footer-link svg { fill: var(--text-dim); transition: var(--transition); }
+        .github-footer-link:hover { color: var(--neon-white); }
+        .github-footer-link:hover svg { fill: var(--neon-white); filter: drop-shadow(0 0 8px #fff); transform: scale(1.1); }
+
+        .site-footer { padding: 40px 0; text-align: center; font-size: 0.8rem; color: var(--text-dim); border-top: 1px solid var(--border-glass); }
+
+        @media (max-width: 768px) { .nav-list { display: none; } }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="logo">FRISK-V3</div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#music">Music</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="section hero">
+            <div class="container">
+                <h1>Create with Neon.</h1>
+                <p>Software Developer & Music Creator.</p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn primary">Projects</a>
+                    <a href="#music" class="btn ghost">Listen Music</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <p style="text-align: center; max-width: 600px; margin: 0 auto;">コードを書いて、音を作る。自分の世界を構築中。</p>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Latest Projects</h2>
+                <div id="projects-list" class="cards">
+                    <p>Loading repositories...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="music" class="section">
+            <div class="container">
+                <h2 class="section-title">Music</h2>
+                <div class="music-player-container">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <span style="font-size: 2rem;">🎵</span>
+                        <div style="color: var(--neon-white); font-weight: bold;">Original Track</div>
+                    </div>
+                    <audio id="portfolio-audio" controls>
+                        Your browser does not support audio.
+                    </audio>
+                </div>
+            </div>
+        </section>
+
+        <!-- GitHubをここに配置 -->
+        <div class="github-footer-area">
+            <a href="https://github.com" target="_blank" class="github-footer-link">
+                <svg xmlns="http://w3.org" width="48" height="48" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <span>View My GitHub Profile</span>
+            </a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> frisk-V3. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 年
+            document.getElementById("year").textContent = new Date().getFullYear();
+
+            // GitHubリポジトリ取得
+            async function loadRepos() {
+                const container = document.getElementById("projects-list");
+                try {
+                    const res = await fetch("https://github.com");
+                    const repos = await res.json();
+                    container.innerHTML = "";
+                    repos.forEach(repo => {
+                        const card = document.createElement("div");
+                        card.className = "card";
+                        card.innerHTML = `
+                            <h3>${repo.name}</h3>
+                            <p>${repo.description || "No description provided."}</p>
+                            <a href="${repo.html_url}" class="card-link" target="_blank">Repository →</a>
+                        `;
+                        container.appendChild(card);
+                    });
+                } catch (e) {
+                    container.innerHTML = "Failed to load projects.";
+                }
+            }
+            loadRepos();
+
+            // スクロールで表示
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add("visible");
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll(".section").forEach(s => observer.observe(s));
+        });
+    </script>
+</body>
+</html>
